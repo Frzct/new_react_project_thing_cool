@@ -1,7 +1,38 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+
+// functions and stuff below
+function getRandomInt(maxNum){
+  return Math.floor(Math.random() * maxNum)
+}
+
+const weathers = [
+  'Rain',
+  'Snow',
+  'Hell',
+  'Suspiciously sunny'
+]
+
+function WeatherDisplay(){
+  const [weather, setWeather] = useState("sun")
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setWeather(weathers[getRandomInt(weathers.length)])
+    }, 1000)
+
+    return () => {clearInterval(interval)}
+  }, [])
+
+  return (
+    <div>
+      <p>the weather right now is {weather}</p>
+      <p>pretty cool</p>
+    </div>
+  )
+}
 
 function App() {
   const [count, setCount] = useState(0)
@@ -9,27 +40,16 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <p>hello counter.......</p>
 
-      <p>yo... gurt.</p>
+        <button onClick = {() => {setCount(count + 1)}}>click me</button>
+        <button onClick = {() => {setCount(count - 1)}}>click me to invert</button>
+
+        <p>count is {count}</p>
+      
+      </div>
+
+      <WeatherDisplay/>
     </>
   )
 }
