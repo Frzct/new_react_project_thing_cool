@@ -4,7 +4,7 @@ import './App.css'
 	// Todolist Components
 
 function Crossout(){
-	return <img src='./public/Untitled.png'></img>
+	return <img src='/Untitled.png' alt="Crossout"></img>
 }
 
 	//
