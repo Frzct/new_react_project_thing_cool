@@ -16,6 +16,5 @@ function getRandomWeather() {
 }
 
 export default function handler(req, res) {
-  // Enable CORS
-  res.json({ hello: "World...." })
+  res.status(200).json({ hello: "world" });
 }
