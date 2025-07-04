@@ -47,7 +47,7 @@ function ToDoList(){
 }
 
 function Crossout(){
-  return <img src='./public/Untitled.png'></img>
+  return <img src='/public/Untitled.png'></img>
 }
 
 // main app
