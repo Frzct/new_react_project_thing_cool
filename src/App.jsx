@@ -118,6 +118,8 @@ function App() {
       <Crossout/>
       <WeatherDisplay/>
 
+      <Crossout/>
+      <button onClick={() => {window.location.href = '/register'}}>register here</button>
 
     </>
   )
