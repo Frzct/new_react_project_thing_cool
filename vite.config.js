@@ -6,9 +6,6 @@ export default defineConfig({
   plugins: [react()],
   build: {
     manifest: true,
-    rollupOptions: {
-      input: './src/main.jsx',
-    },
   },
   server: {
     proxy: {
