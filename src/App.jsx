@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+
 
 // functions and stuff below
 function getRandomInt(maxNum){
@@ -80,23 +79,21 @@ function ToDoList(){
       }
     </div>
 
-    <span>
-
-      <button onClick={() => {
+    <button onClick={() => {
         const itemIndex = CheckFor(text)
         if (itemIndex !== -1 || !text.trim()) {return}
 
         setDoList(doList => [...doList, text]);
-      }}>Add</button>
-
-    </span>
+      }}> 
+    Add
+    </button>
 
   </div>
   )
 }
 
 function Crossout(){
-  return <img src='./public/Untitled.png'></img>
+  return <img src='./Untitled.png'></img>
 }
 
 // main app
