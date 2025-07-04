@@ -15,7 +15,7 @@ function getRandomWeather() {
   return weathers[Math.floor(Math.random() * weathers.length)];
 }
 
-/*export default function handler(req, res) {
+export default function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -37,7 +37,4 @@ function getRandomWeather() {
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }
-} */
-export default function handler(req, res) {
-    res.status(200).json({ hello: "world" });
 }
