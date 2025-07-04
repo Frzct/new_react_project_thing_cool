@@ -7,5 +7,6 @@
     "api/**/*.js": {
       "runtime": "nodejs18.x"
     }
-  }
+  },
+  "___dog": "yes"
 } 
