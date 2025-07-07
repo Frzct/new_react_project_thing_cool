@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-
+import DeployData from './deploymentData.json'
 
 // functions and stuff below
 function getRandomInt(maxNum){
@@ -22,7 +22,7 @@ function WeatherDisplay(){
     
     const fetchWeather = async () => {
       try {
-        const response = await fetch('https://backend-85zhmxikw-bakudankows-projects.vercel.app/')
+        const response = await fetch(DeployData.backend)
         const data = await response.json()
         setWeather(data.weather)
         setLoading(false)
