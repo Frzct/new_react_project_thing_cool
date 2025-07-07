@@ -19,12 +19,11 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback){
-    // if (!origin) return callback(null, true); removing, since this backend runs on a separate domain
-		// if somehow something breaks, re-add no origin requests.
+    if (!origin) return callback(null, true); // 
     if (allowedOrigins.includes(origin)){
       return callback(null, true)
     } else {
-      return
+      return callback(new Error())
     }
 
   }
