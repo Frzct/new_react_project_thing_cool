@@ -11,7 +11,25 @@ const app = express();
 const PORT = process.env.PORT || 3003;
 console.log(PORT, "is port")
 // Middleware
-app.use(cors());    
+
+const allowedOrigins = [
+  'https://new-react-project-thing-cool-git-feature-2-bakudankows-projects.vercel.app',
+  // Add more allowed origins here if needed
+];
+
+app.use(cors({
+  origin: function(origin, callback){
+    // if (!origin) return callback(null, true); removing, since this backend runs on a separate domain
+		// if somehow something breaks, re-add no origin requests.
+    if (allowedOrigins.includes(origin)){
+      return callback(null, true)
+    } else {
+      return
+    }
+
+  }
+
+}));    
 app.use(express.json());
 
 // Routes
