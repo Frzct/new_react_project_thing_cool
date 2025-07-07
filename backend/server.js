@@ -24,8 +24,7 @@ app.use(cors({
     if ( allowedOrigins.includes(origin.split('/')[2]) ){
       return callback(null, true)
     } else {
-			console.log("Unauthorized user", origin)
-      return callback(new Error())
+      return callback(new Error(`originSplit ${origin.split('/')}, failed to authorize`))
     }
 
   }
