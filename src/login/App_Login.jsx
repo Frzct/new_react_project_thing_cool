@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import './App.css'
 
 	// Todolist Components
 
 function Crossout(){
-	return <img src='/Untitled.png' alt="Crossout"></img>
+	return <img className='crossout' src='/Untitled.png' alt="Crossout"></img>
 }
 
 	//
@@ -123,6 +122,7 @@ function App() {
 
 	return (
 		<>
+		<link href='./App.css' rel='stylesheet'></link>
 		<Crossout/>
 		<Form questions={[
 			'Separator',

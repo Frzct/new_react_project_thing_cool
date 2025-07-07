@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import './App.css'
 
+import "./App.css"
 	// Todolist Components
 
 function Crossout(){
-	return <img src='/Untitled.png' alt="Crossout"></img>
+	return <img className='crossout' src='/Untitled.png' alt="Crossout"></img>
 }
 
 	//
@@ -121,6 +121,7 @@ function App() {
 
 	return (
 		<>
+
 		<Crossout/>
 		<Form questions={[
 			'Separator',
@@ -153,6 +154,7 @@ function App() {
 			{ question: "AT WHAT TIMEFRAME ARE YOUR PARENTS ABSENT",
 				type: 'Input'},
 		]}/>
+		<Crossout/>
 		</>
 	)
 }

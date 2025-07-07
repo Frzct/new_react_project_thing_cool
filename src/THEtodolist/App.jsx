@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 
 // Todolist Components
 
@@ -47,7 +46,7 @@ function ToDoList(){
 }
 
 function Crossout(){
-  return <img src='/public/Untitled.png'></img>
+  return <img className='crossout' src='/public/Untitled.png'></img>
 }
 
 // main app
@@ -55,6 +54,8 @@ function App() {
 
   return (
     <>
+      <style href='./App.css' type='text/css'></style>
+
       <Crossout/>
       <ToDoList/>
     </>
