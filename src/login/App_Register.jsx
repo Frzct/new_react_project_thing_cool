@@ -41,6 +41,16 @@ function InputField({ question, self }){
 		}}/>
 	</div>
 }
+
+function Password({ question, self }){
+	return <div className='flex items-center gap-10'>
+		<p>{question}</p>
+		<input type='password' className='px-2 py-1 border rounded' onChange={e => {
+			self.answers[question] = e.target.value
+			//console.log(self.answers)
+		}}/>
+	</div>
+}
 //
 
 class Form extends React.Component {
@@ -74,6 +84,12 @@ class Form extends React.Component {
 					question={question} 
 					self={this}
 					/>
+				case "Password": 
+				return <Password
+					key={question} 
+					question={question} 
+					self={this}
+					/>
 				}
 
 			}
@@ -93,8 +109,8 @@ class Form extends React.Component {
 			<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={() => {
 				console.log('SUBMIT', this.answers)
 				alert("You get nothing for submitting this form. Redirecting to webpage.")
-				window.location.href = '/thetodolist'
-			}}>Submit</button>
+				window.location.href = '/dashboard'
+			}}>Register</button>
 			<h5>YOU GET 1000 FREE [[POINTS]] ON SUBMISSION !!!</h5>
 		</>
 	}
@@ -109,14 +125,11 @@ function App() {
 		<Form questions={[
 			'Separator',
 
-			{ question: "FIRST NAME",
+			{ question: "USERNAME",
 			  type: 'Input'},
 
-			{ question: "MIDDLE NAME",
-			  type: 'Input' },
-
-			{ question: "LAST NAME",
-				type: 'Input'},
+			{ question: "PASSWORD",
+			  type: 'Password'},
 
 			'Separator',
 

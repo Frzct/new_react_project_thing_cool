@@ -120,7 +120,6 @@ function App() {
 
       <Crossout/>
       <br/><br/>
-      <button onClick={() => {window.location.href = '/register'}}>register here</button>
 
     </>
   )

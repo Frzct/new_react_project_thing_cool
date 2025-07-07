@@ -8,6 +8,7 @@ import App from './App.jsx'
 import TodoList from './THEtodolist/App.jsx'
 import PlaceholderList from './THEtodolist/placeholder.jsx'
 import Register from './login/App_Register.jsx'
+import Login from './login/App_Login.jsx'
 
 /*const newRouter = createBrowserRouter([
   {path: '/', element: App}
@@ -18,14 +19,16 @@ Root.render(
 
   <BrowserRouter>
     <Routes>
-      <Route path='/' element={<App />} />
+      
+      <Route path='/register' element={<Register />} />
+      <Route path='/' element={<Login />} />
 
       <Route path="thetodolist">
         <Route index element={<TodoList/>} />
         <Route path="wrong" element={<PlaceholderList />} />
       </Route>
 
-      <Route path='/register' element={<Register />} />
+      <Route path='/dashboard' element={<App />} />
 
     </Routes>
 
