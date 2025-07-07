@@ -22,7 +22,7 @@ function WeatherDisplay(){
     
     const fetchWeather = async () => {
       try {
-        const response = await fetch('https://backend-5u0hdgyxu-bakudankows-projects.vercel.app/api/weather')
+        const response = await fetch('https://backend-rmep692zq-bakudankows-projects.vercel.app/')
         const data = await response.json()
         setWeather(data.weather)
         setLoading(false)
