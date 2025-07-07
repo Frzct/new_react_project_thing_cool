@@ -14,6 +14,7 @@ console.log(PORT, "is port")
 
 const allowedOrigins = [
   'https://new-react-project-thing-cool-git-feature-2-bakudankows-projects.vercel.app',
+	'https://new-react-project-thing-cool.vercel.app'
   // Add more allowed origins here if needed
 ];
 
