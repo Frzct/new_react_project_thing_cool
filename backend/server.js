@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { getCurrentWeather, getWeatherForecast } from './api/weather.js';
+import { getHelloMessage, getGreeting } from './api/hello.js';
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from './api/users.js';
 
 dotenv.config();
 
@@ -11,49 +14,64 @@ console.log(PORT, "is port")
 app.use(cors());    
 app.use(express.json());
 
-// Weather data
-const weathers = [
-  'Rain',
-  'Snow', 
-  'Hell',
-  'Suspiciously sunny',
-  'Cloudy',
-  'Windy',
-  'Perfect',
-  'Apocalyptic'
-];
-
-// Helper function to get random weather
-function getRandomWeather() {
-  return weathers[Math.floor(Math.random() * weathers.length)];
-}
-
 // Routes
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the Cool Weather API!' });
 });
 
-// Get current weather
-app.get('/api/weather', (req, res) => {
-  const weather = getRandomWeather();
-  res.json({ 
-    weather,
-    timestamp: new Date().toISOString(),
-    temperature: Math.floor(Math.random() * 40) - 10 // Random temp between -10 and 30
-  });
+// Hello endpoints
+app.get('/api/hello', (req, res) => {
+  res.json(getHelloMessage());
 });
 
-// Get weather forecast (next 5 days)
+app.get('/api/greeting/:name?', (req, res) => {
+  const name = req.params.name;
+  res.json(getGreeting(name));
+});
+
+// Weather endpoints
+app.get('/api/weather', (req, res) => {
+  res.json(getCurrentWeather());
+});
+
 app.get('/api/forecast', (req, res) => {
-  const forecast = [];
-  for (let i = 0; i < 5; i++) {
-    forecast.push({
-      day: i + 1,
-      weather: getRandomWeather(),
-      temperature: Math.floor(Math.random() * 40) - 10
-    });
+  res.json(getWeatherForecast());
+});
+
+// User endpoints
+app.get('/api/users', (req, res) => {
+  res.json(getAllUsers());
+});
+
+app.get('/api/users/:id', (req, res) => {
+  const result = getUserById(req.params.id);
+  if (result.error) {
+    res.status(404).json(result);
+  } else {
+    res.json(result);
   }
-  res.json({ forecast });
+});
+
+app.post('/api/users', (req, res) => {
+  res.json(createUser(req.body));
+});
+
+app.put('/api/users/:id', (req, res) => {
+  const result = updateUser(req.params.id, req.body);
+  if (result.error) {
+    res.status(404).json(result);
+  } else {
+    res.json(result);
+  }
+});
+
+app.delete('/api/users/:id', (req, res) => {
+  const result = deleteUser(req.params.id);
+  if (result.error) {
+    res.status(404).json(result);
+  } else {
+    res.json(result);
+  }
 });
 
 // Health check endpoint
@@ -66,8 +84,11 @@ if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📡 Weather API available at http://localhost:${PORT}/api/weather`);
+    console.log(`👋 Hello API available at http://localhost:${PORT}/api/hello`);
+    console.log(`👥 Users API available at http://localhost:${PORT}/api/users`);
   });
 }
 
+// i swear for sure im going to rewrite this
 // Export for Vercel serverless function
 export default app; 
