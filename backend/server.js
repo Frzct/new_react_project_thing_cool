@@ -13,15 +13,15 @@ console.log(PORT, "is port")
 // Middleware
 
 const allowedOrigins = [
-  'new-react-project-thing-cool-git-feature-2-bakudankows-projects.vercel.app',
-	'new-react-project-thing-cool.vercel.app'
+  'https://new-react-project-thing-cool-git-feature-2-bakudankows-projects.vercel.app',
+	'https://new-react-project-thing-cool.vercel.app'
   // Add more allowed origins here if needed
 ];
 
 app.use(cors({
   origin: function(origin, callback){
     if (!origin) return callback(null, true); // 
-    if ( allowedOrigins.includes(origin.split('/')[2]) ){
+    if ( allowedOrigins.includes( origin ) ){
       return callback(null, true)
     } else {
       return callback(new Error(`originSplit ${origin.split('/')}, failed to authorize`))

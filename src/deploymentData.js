@@ -1,4 +1,4 @@
 
 export default {
-    'backend': 'https://backend-api-five-umber.vercel.app/'
+    'backend': 'https://backend-api-five-umber.vercel.app'
 }
