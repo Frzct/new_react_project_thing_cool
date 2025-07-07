@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { getCurrentWeather, getWeatherForecast } from './api/weather.js';
-import { getHelloMessage, getGreeting } from './api/hello.js';
+import { version } from './api/version.js';
 import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from './api/users.js';
 
 dotenv.config();
@@ -60,6 +60,10 @@ app.get('/api/forecast', (req, res) => {
 app.get('/api/users', (req, res) => {
   res.json(getAllUsers());
 });
+
+app.get('/api/version', (req, res) => {
+	res.json(version())
+})
 
 app.get('/api/users/:id', (req, res) => {
   const result = getUserById(req.params.id);
