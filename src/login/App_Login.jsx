@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import styles from './App_Login.module.css'
 
 	// Todolist Components
 
 function Crossout(){
-	return <img className='crossout' src='/Untitled.png' alt="Crossout"></img>
+	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
 }
 
 	//
@@ -32,8 +33,8 @@ function Checker({ question, options, self }){
 }
 	
 function InputField({ question, self }){
-	return <div className='flex items-center gap-10'>
-		<p>{question}</p>
+	return <div className={styles['form-element']}>
+		<p>{question}</p>	
 		<input type='text' className='px-2 py-1 border rounded' onChange={e => {
 			self.answers[question] = e.target.value
 			//console.log(self.answers)
@@ -42,7 +43,7 @@ function InputField({ question, self }){
 }
 
 function Password({ question, self }){
-	return <div className='flex items-center gap-10'>
+	return <div className={styles['form-element']}>
 		<p>{question}</p>
 		<input type='password' className='px-2 py-1 border rounded' onChange={e => {
 			self.answers[question] = e.target.value
@@ -66,7 +67,9 @@ class Form extends React.Component {
 		//
 		return this.questions.map(
 			(PropsContainer, i) => {
-				if (PropsContainer === 'Separator') { return <p key={i + "_separator"}>---------------------</p>}
+				if (PropsContainer === 'Separator') { return <p key={i + "_separator"} className={styles['underline-obj']}>
+					________________________________________________________________
+				</p>}
 
 				const question = PropsContainer.question
 
@@ -98,21 +101,23 @@ class Form extends React.Component {
 
 	render() {
 		return <>
-			<h2>TOTALLY NOT SHADY LOGIN!!!! FORM</h2>
-			<h5>Your SECRET pass to a SECRET deal.......</h5>
+			<div className={styles['form-container']}>
+				<h2>TOTALLY NOT SHADY LOGIN!!!! FORM</h2>
+				<h5>Your SECRET pass to a SECRET deal.......</h5>
 
-			<div className='flex flex-col gap-4'>
-				{this.renderUlComponents()}
+				<div className={'flex flex-col gap-4 ' + styles['form-render']}>
+					{this.renderUlComponents()}
+				</div>
+
+				<br/>
+				<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={() => {
+					console.log('SUBMIT', this.answers)
+					alert("I'll just pretend you had a successful login.")
+					window.location.href = '/dashboard'
+				}}>Login</button>
+				<h5>MAKE SURE YOUR [[Magical Code]] IS CORRECT.</h5>
+				<a href='/register'>CLICK HERE IF YOU WANT [[Registry]].</a>
 			</div>
-
-			<br/>
-			<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={() => {
-				console.log('SUBMIT', this.answers)
-				alert("I'll just pretend you had a successful login.")
-				window.location.href = '/dashboard'
-			}}>Login</button>
-			<h5>MAKE SURE YOUR [[Magical Code]] IS CORRECT.</h5>
-			<a href='/register'>CLICK HERE IF YOU WANT [[Registry]].</a>
 		</>
 	}
 	} 
@@ -121,22 +126,20 @@ class Form extends React.Component {
 function App() {
 
 	return (
-		<>
-		<link href='./App.css' rel='stylesheet'></link>
-		<Crossout/>
-		<Form questions={[
-			'Separator',
+		<div className={styles.loginWrapper}>
+			<Form questions={[
+				'Separator',
 
-			{ question: "USERNAME",
-			  type: 'Input'},
-			
-			{ question: "PASSWORD",
-			  type: 'Password'},
-			'Separator',
+				{ question: "USERNAME",
+				  type: 'Input'},
+				
+				{ question: "PASSWORD",
+				  type: 'Password'},
+				'Separator',
 
-		]}/>
+			]}/>
 
-		</>
+		</div>
 	)
 }
 

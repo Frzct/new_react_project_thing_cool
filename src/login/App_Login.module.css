@@ -1,0 +1,108 @@
+.loginWrapper {
+    background: url('https://img.freepik.com/premium-vector/gingham-pattern-red-background_78370-2239.jpg?semt=ais_hybrid&w=740');
+    background-size: auto auto;
+    min-height: 100vh;
+    color: white;
+    font-family: 'ND Astroneer';
+    /* max-width: 1280px; */
+    height: fit-content;
+    margin: -2em;
+    /* padding: 2rem; */
+    padding-bottom: .2em;
+    text-align: center;
+}
+
+.loginWrapper h2,
+.loginWrapper h5 {
+  color: white;
+  font-family: 'ND Astroneer';
+}
+
+.loginWrapper p,
+.loginWrapper a,
+.loginWrapper button,
+.loginWrapper input {
+  font-family: 'ND Astroneer Bold';
+  color: white;
+}
+
+.loginWrapper button,
+.loginWrapper input {
+  background-color: rgba(142, 142, 142, 0.266);
+}
+.loginWrapper .underline-obj {
+    margin: 0px;
+    padding: 1rem;
+}
+
+.loginWrapper .form-container {
+  FONT-VARIANT: JIS04;
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: rotate(.5deg);
+  width: 35rem;
+  padding-top: 20rem;
+  padding-bottom: 20rem;
+  padding-left: 2.5rem;
+  padding-right: 2rem;
+  margin-left: -1rem;
+  margin-top: -1rem;
+  align-items: center;
+  justify-content: center;    
+  display: block;
+}
+
+.loginWrapper .form-render {
+  display: grid;
+  justify-self: center;
+  align-items: center;
+}
+
+.loginWrapper .form-element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: .5em;
+}
+
+.loginWrapper .crossout {
+  width: 38em;
+  height: 3em;
+}
+
+.loginWrapper .logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.loginWrapper .logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.loginWrapper .logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.loginWrapper .selectionOptions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: .5rem;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .loginWrapper a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}

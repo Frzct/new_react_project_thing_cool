@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import "./App.css"
+import styles from "./App_Login.module.css"
 	// Todolist Components
 
 function Crossout(){
-	return <img className='crossout' src='/Untitled.png' alt="Crossout"></img>
+	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
 }
 
 	//
@@ -12,7 +12,7 @@ function Checker({ question, options, self }){
 
 	return <div className='flex items-center gap-4'>
 		<p className='min-w-fit'>{question}</p>
-		<div className='flex gap-4'>
+		<div className={styles.selectionOptions}>
 		{	options.map(option => {
 			return <div key={option} className="flex items-center gap-2">
 				<input 
@@ -33,7 +33,7 @@ function Checker({ question, options, self }){
 }
 	
 function InputField({ question, self }){
-	return <div className='flex items-center gap-10'>
+	return <div className={styles['form-element']}>
 		<p>{question}</p>
 		<input type='text' className='px-2 py-1 border rounded' onChange={e => {
 			self.answers[question] = e.target.value
@@ -43,7 +43,7 @@ function InputField({ question, self }){
 }
 
 function Password({ question, self }){
-	return <div className='flex items-center gap-10'>
+	return <div className={styles['form-element']}>
 		<p>{question}</p>
 		<input type='password' className='px-2 py-1 border rounded' onChange={e => {
 			self.answers[question] = e.target.value
@@ -66,7 +66,9 @@ class Form extends React.Component {
 		//
 		return this.questions.map(
 			(PropsContainer, i) => {
-				if (PropsContainer === 'Separator') { return <p key={i + "_separator"}>---------------------</p>}
+				if (PropsContainer === 'Separator') { return <p key={i + "_separator"} className={styles['underline-obj']}>
+					________________________________________________________________
+				</p>}
 
 				const question = PropsContainer.question
 
@@ -97,11 +99,11 @@ class Form extends React.Component {
 	}
 
 	render() {
-		return <>
+		return <div className={styles['form-container']}>
 			<h2>TOTALLY NOT SHADY REGISTER FORM</h2>
 			<h5>Give me your credentials</h5>
 
-			<div className='flex flex-col gap-4'>
+			<div className={'flex flex-col gap-4 ' + styles['form-render']}>
 				{this.renderUlComponents()}
 			</div>
 
@@ -112,7 +114,7 @@ class Form extends React.Component {
 				window.location.href = '/dashboard'
 			}}>Register</button>
 			<h5>YOU GET 1000 FREE [[POINTS]] ON SUBMISSION !!!</h5>
-		</>
+		</div>
 	}
 	} 
 
@@ -120,9 +122,9 @@ class Form extends React.Component {
 function App() {
 
 	return (
-		<>
+		<div className={styles['loginWrapper']}>
 
-		<Crossout/>
+		{/*<Crossout/>*/}
 		<Form questions={[
 			'Separator',
 
@@ -153,9 +155,11 @@ function App() {
 
 			{ question: "AT WHAT TIMEFRAME ARE YOUR PARENTS ABSENT",
 				type: 'Input'},
+
+			'Separator',
 		]}/>
-		<Crossout/>
-		</>
+		{/*<Crossout/>*/}
+		</div>
 	)
 }
 

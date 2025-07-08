@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import DeployData from './deploymentData.js'
 
-import "./App.css"
+import styles from "./App.module.css"
 
 const DeployEnv = DeployData()
 
@@ -74,7 +74,7 @@ function ToDoList(){
        DoList.map((listItem, idx) => (
         <p key={idx} className="border p-2 rounded bg-white-100">
           {listItem + "   "}
-          <button className='remove-button' onClick={() => {
+          <button className={styles['remove-button']} onClick={() => {
               RemoveID(idx);
           }}>Remove</button>
         </p>
@@ -96,7 +96,7 @@ function ToDoList(){
 }
 
 function Crossout(){
-  return <img className='crossout' src='./Untitled.png'></img>
+  return <img className={styles.crossout} src='./Untitled.png'></img>
 }
 
 // main app

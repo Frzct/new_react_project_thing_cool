@@ -2,14 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, createBrowserRouter, Route, Routes } from 'react-router'
 
-import './index.css'
-
 import App from './App.jsx'
 import TodoList from './THEtodolist/App.jsx'
 import PlaceholderList from './THEtodolist/placeholder.jsx'
 import Register from './login/App_Register.jsx'
 import Login from './login/App_Login.jsx'
 
+import './fonts.css'
 /*const newRouter = createBrowserRouter([
   {path: '/', element: App}
 ])*/

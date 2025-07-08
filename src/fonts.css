@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'ND Astroneer';
+    src: url('/fonts/ND-Astroneer/NDAstroneer-Light.ttf');
+}
+
+@font-face {
+    font-family: 'ND Astroneer Bold';
+    src: url('/fonts/ND-Astroneer/NDAstroneer-Bold.ttf');
+    font-weight: bold;
+}
