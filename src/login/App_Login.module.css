@@ -1,6 +1,7 @@
 .loginWrapper {
-    background: url('https://img.freepik.com/premium-vector/gingham-pattern-red-background_78370-2239.jpg?semt=ais_hybrid&w=740');
-    background-size: auto auto;
+    background: url('https://static.vecteezy.com/system/resources/previews/006/123/611/original/seamless-checkered-background-in-light-blue-tones-free-vector.jpg');
+    min-width:100%; min-height:100%; 
+    width:auto; height:auto;
     min-height: 100vh;
     color: white;
     font-family: 'ND Astroneer';
@@ -37,15 +38,12 @@
 
 .loginWrapper .form-container {
   FONT-VARIANT: JIS04;
-  background-color: rgba(0, 0, 0, 0.5);
-  transform: rotate(.5deg);
+  background-color: rgba(0, 0, 0, 0.8);
   width: 35rem;
   padding-top: 20rem;
   padding-bottom: 20rem;
   padding-left: 2.5rem;
   padding-right: 2rem;
-  margin-left: -1rem;
-  margin-top: -1rem;
   align-items: center;
   justify-content: center;    
   display: block;
