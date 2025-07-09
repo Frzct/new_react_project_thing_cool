@@ -8,3 +8,11 @@
     src: url('/fonts/ND-Astroneer/NDAstroneer-Bold.ttf');
     font-weight: bold;
 }
+
+#root {
+   min-width:100%; min-height:100%; 
+}
+
+body {
+    margin: 0;
+}

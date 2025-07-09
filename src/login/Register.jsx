@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import styles from "./App_Login.module.css"
+import styles from "./Login.module.css"
 	// Todolist Components
 
 function Crossout(){
@@ -8,9 +8,9 @@ function Crossout(){
 }
 
 	//
-function Checker({ question, options, self }){
+function Checker({ question, options, display, self }){
 
-	return <div className='flex items-center gap-4'>
+	return <div className={'items-center gap-4'} style={{display: display, justifyContent: 'center'}}>
 		<p className='min-w-fit'>{question}</p>
 		<div className={styles.selectionOptions}>
 		{	options.map(option => {
@@ -100,8 +100,13 @@ class Form extends React.Component {
 
 	render() {
 		return <div className={styles['form-container']}>
-			<h2>TOTALLY NOT SHADY REGISTER FORM</h2>
-			<h5>Give me your credentials</h5>
+			<h1>cool website (TM)</h1>
+			<p className={styles['underline-obj']}>
+				________________________________________________________________
+			</p>
+
+			<h2 className={styles['title']}>TOTALLY NOT SHADY REGISTER FORM</h2>
+			<h5 className={styles['title-desc']}>Give me your credentials</h5>
 
 			<div className={'flex flex-col gap-4 ' + styles['form-render']}>
 				{this.renderUlComponents()}
@@ -144,17 +149,6 @@ function App() {
 				'Other',
 				'TOP RATED BUSINESSMAN OF1997'
 			]},
-
-			'Separator',
-
-			{ question: "CREDIT CARD NUMBER",
-				type: 'Input'},
-
-			{ question: "3 NUMBERS ON THE BACK OF CREDIT CARD",
-				type: 'Input'},
-
-			{ question: "AT WHAT TIMEFRAME ARE YOUR PARENTS ABSENT",
-				type: 'Input'},
 
 			'Separator',
 		]}/>

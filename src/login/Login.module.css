@@ -2,14 +2,13 @@
     background: url('https://static.vecteezy.com/system/resources/previews/006/123/611/original/seamless-checkered-background-in-light-blue-tones-free-vector.jpg');
     min-width:100%; min-height:100%; 
     width:auto; height:auto;
-    min-height: 100vh;
+
     color: white;
     font-family: 'ND Astroneer';
     /* max-width: 1280px; */
     height: fit-content;
     margin: -2em;
     /* padding: 2rem; */
-    padding-bottom: .2em;
     text-align: center;
 }
 
@@ -22,31 +21,44 @@
 .loginWrapper p,
 .loginWrapper a,
 .loginWrapper button,
+.right-corner button,
 .loginWrapper input {
   font-family: 'ND Astroneer Bold';
   color: white;
 }
 
+.loginWrapper button {
+  height: 2.5rem;
+  font-size: larger;
+}
+
 .loginWrapper button,
+.right-corner button,
 .loginWrapper input {
   background-color: rgba(142, 142, 142, 0.266);
 }
 .loginWrapper .underline-obj {
     margin: 0px;
     padding: 1rem;
+    padding-top: .5rem;
 }
 
 .loginWrapper .form-container {
   FONT-VARIANT: JIS04;
   background-color: rgba(0, 0, 0, 0.8);
   width: 35rem;
-  padding-top: 20rem;
-  padding-bottom: 20rem;
-  padding-left: 2.5rem;
-  padding-right: 2rem;
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+  min-height:100%;
   align-items: center;
-  justify-content: center;    
-  display: block;
+  justify-content: center;
+  display: grid;
+}
+
+.loginWrapper .form-container .title,
+.loginWrapper .form-container .title-desc {
+  margin-top: .5rem;
+  margin-bottom: .5rem
 }
 
 .loginWrapper .form-render {
@@ -61,6 +73,11 @@
   align-items: center;
   gap: 10px;
   margin: .5em;
+}
+
+.loginWrapper .form-element input {
+  height: 2rem;
+  font-size: larger;
 }
 
 .loginWrapper .crossout {
@@ -86,8 +103,38 @@
 .loginWrapper .selectionOptions {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
     gap: 10px;
-    margin-bottom: .5rem;
+    /*margin-bottom: .5rem;*/
+}
+
+/**/
+
+.right-corner {
+  align-self: self-end;
+  justify-content: right;
+  display: flex;
+  position: relative;
+  gap: 5px;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  
+  width: max-content;
+  height: max-content;
+  justify-self: right;
+  padding: 3px;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 1px;
+
+  position: fixed;
+  top: 96%;
+  left: auto; 
+}
+
+.right-corner button {
+  height: 1.6rem;
 }
 
 @keyframes logo-spin {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styles from './App_Login.module.css'
+import styles from './Login.module.css'
 
 	// Todolist Components
 
@@ -8,11 +8,11 @@ function Crossout(){
 }
 
 	//
-function Checker({ question, options, self }){
+function Checker({ question, options, display, self }){
 
-	return <div className='flex items-center gap-4'>
+	return <div className={'items-center gap-4'} style={{display: display, justifyContent: 'center'}}>
 		<p className='min-w-fit'>{question}</p>
-		<div className='flex gap-4'>
+		<div className={styles.selectionOptions}>
 		{	options.map(option => {
 			return <div key={option} className="flex items-center gap-2">
 				<input 
@@ -79,6 +79,7 @@ class Form extends React.Component {
 					key={question} 
 					question={question} 
 					options={PropsContainer.options}
+					display={PropsContainer.display}
 					self={this}
 					/>
 				case "Input":
@@ -102,8 +103,13 @@ class Form extends React.Component {
 	render() {
 		return <>
 			<div className={styles['form-container']}>
-				<h2>TOTALLY NOT SHADY LOGIN!!!! FORM</h2>
-				<h5>Your SECRET pass to a SECRET deal.......</h5>
+				<br/><br/><br/><br/>
+				<h1>cool website (TM)</h1>
+				<p className={styles['underline-obj']}>
+					________________________________________________________________
+				</p>
+				<h2 className={styles['title']}>TOTALLY NOT SHADY LOGIN!!!! FORM</h2>
+				<h5 className={styles['title-desc']}>Your SECRET pass to a SECRET deal.......</h5>
 
 				<div className={'flex flex-col gap-4 ' + styles['form-render']}>
 					{this.renderUlComponents()}
@@ -117,6 +123,7 @@ class Form extends React.Component {
 				}}>Login</button>
 				<h5>MAKE SURE YOUR [[Magical Code]] IS CORRECT.</h5>
 				<a href='/register'>CLICK HERE IF YOU WANT [[Registry]].</a>
+				<br/><br/><br/><br/>
 			</div>
 		</>
 	}
@@ -126,20 +133,34 @@ class Form extends React.Component {
 function App() {
 
 	return (
-		<div className={styles.loginWrapper}>
-			<Form questions={[
-				'Separator',
+		<>
+			<div className={styles.loginWrapper}>
+				<Form questions={[
+					'Separator',
 
-				{ question: "USERNAME",
-				  type: 'Input'},
-				
-				{ question: "PASSWORD",
-				  type: 'Password'},
-				'Separator',
+					{ question: "USERNAME",
+					type: 'Input'},
+					
+					{ question: "PASSWORD",
+					type: 'Password'},
 
-			]}/>
+					'Separator',
+					
+					{ question: "REMEMBER NEXT LOGIN",
+					  type: 'Checkbox',
+					  options: ['Yes', 'No'],
+					  display: 'flex'
+					},
 
-		</div>
+				]}/>
+			</div>
+
+			<div className={styles['right-corner']}>
+				<button>home</button>
+				<button>home 2</button>
+				<button>home 3</button>
+			</div>
+		</>
 	)
 }
 
