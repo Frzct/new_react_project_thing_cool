@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 import { getCurrentWeather, getWeatherForecast } from './api/weather.js';
 import { version } from './api/version.js';
-import FetchUser from './api/fetchUser.js';
+import FetchUser, {fetchUserByObjectId} from './api/fetchUser.js';
 import FetchAllUsers from './api/fetchAllUsers.js';
 import { Initialize } from './database.js'
 
@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3003;
 
 await Initialize()
 
-await FetchUser('Steve', 'safemode').then(res => console.log(res))
+await fetchUserByObjectId('686cb41da1b5a2eb31718dc5', 'safemode').then(res => console.log(res))
 console.log( await FetchAllUsers('safemode').toArray() )
 
 

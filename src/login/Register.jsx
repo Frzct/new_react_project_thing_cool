@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import Form from '../components/Form'
 import styles from "./Login.module.css"
 	// Todolist Components
 
@@ -7,121 +7,6 @@ function Crossout(){
 	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
 }
 
-	//
-function Checker({ question, options, display, self }){
-
-	return <div className={'items-center gap-4'} style={{display: display, justifyContent: 'center'}}>
-		<p className='min-w-fit'>{question}</p>
-		<div className={styles.selectionOptions}>
-		{	options.map(option => {
-			return <div key={option} className="flex items-center gap-2">
-				<input 
-					type='radio' 
-					name={'radio_' + question} 
-					value={option} 
-					onChange={e => {
-						if (e.target.value){
-							self.answers[question] = option
-							//console.log(self.answers)
-						}
-					}}/>
-				<label>{option}</label>
-			</div>
-		})	}
-		</div>
-	</div>
-}
-	
-function InputField({ question, self }){
-	return <div className={styles['form-element']}>
-		<p>{question}</p>
-		<input type='text' className='px-2 py-1 border rounded' onChange={e => {
-			self.answers[question] = e.target.value
-			//console.log(self.answers)
-		}}/>
-	</div>
-}
-
-function Password({ question, self }){
-	return <div className={styles['form-element']}>
-		<p>{question}</p>
-		<input type='password' className='px-2 py-1 border rounded' onChange={e => {
-			self.answers[question] = e.target.value
-			//console.log(self.answers)
-		}}/>
-	</div>
-}
-//
-
-class Form extends React.Component {
-	constructor(props) {
-		super(props)
-		
-		this.questions = props.questions // separate it so when answer changes the entire thing doesn't just straight up refresh
-		this.answers = {}
-		this.renderUlComponents.bind(this)
-	}
-
-	renderUlComponents() {
-		//
-		return this.questions.map(
-			(PropsContainer, i) => {
-				if (PropsContainer === 'Separator') { return <p key={i + "_separator"} className={styles['underline-obj']}>
-					________________________________________________________________
-				</p>}
-
-				const question = PropsContainer.question
-
-				switch (PropsContainer.type) {
-				case 'Checkbox':
-					return <Checker 
-					key={question} 
-					question={question} 
-					options={PropsContainer.options}
-					self={this}
-					/>
-				case "Input":
-					return <InputField 
-					key={question} 
-					question={question} 
-					self={this}
-					/>
-				case "Password": 
-				return <Password
-					key={question} 
-					question={question} 
-					self={this}
-					/>
-				}
-
-			}
-		)
-	}
-
-	render() {
-		return <div className={styles['form-container']}>
-			<h1>cool website (TM)</h1>
-			<p className={styles['underline-obj']}>
-				________________________________________________________________
-			</p>
-
-			<h2 className={styles['title']}>TOTALLY NOT SHADY REGISTER FORM</h2>
-			<h5 className={styles['title-desc']}>Give me your credentials</h5>
-
-			<div className={'flex flex-col gap-4 ' + styles['form-render']}>
-				{this.renderUlComponents()}
-			</div>
-
-			<br/>
-			<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={() => {
-				console.log('SUBMIT', this.answers)
-				alert("You get nothing for submitting this form. Redirecting to webpage.")
-				window.location.href = '/dashboard'
-			}}>Register</button>
-			<h5>YOU GET 1000 FREE [[POINTS]] ON SUBMISSION !!!</h5>
-		</div>
-	}
-	} 
 
 	// main app
 function App() {
@@ -130,7 +15,12 @@ function App() {
 		<div className={styles['loginWrapper']}>
 
 		{/*<Crossout/>*/}
-		<Form questions={[
+		<Form 
+		title="TOTALLY NOT SHADY REGISTER FORM" 
+		desc='trust.' 
+		send_txt='Register'
+		footer=<><p>cool.</p></>
+		questions={[
 			'Separator',
 
 			{ question: "USERNAME",

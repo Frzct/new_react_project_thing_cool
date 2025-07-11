@@ -1,133 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Login.module.css'
-
+import Form from '../components/Form'
 	// Todolist Components
 
 function Crossout(){
 	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
 }
-
-	//
-function Checker({ question, options, display, self }){
-
-	return <div className={'items-center gap-4'} style={{display: display, justifyContent: 'center'}}>
-		<p className='min-w-fit'>{question}</p>
-		<div className={styles.selectionOptions}>
-		{	options.map(option => {
-			return <div key={option} className="flex items-center gap-2">
-				<input 
-					type='radio' 
-					name={'radio_' + question} 
-					value={option} 
-					onChange={e => {
-						if (e.target.value){
-							self.answers[question] = option
-							//console.log(self.answers)
-						}
-					}}/>
-				<label>{option}</label>
-			</div>
-		})	}
-		</div>
-	</div>
-}
-	
-function InputField({ question, self }){
-	return <div className={styles['form-element']}>
-		<p>{question}</p>	
-		<input type='text' className='px-2 py-1 border rounded' onChange={e => {
-			self.answers[question] = e.target.value
-			//console.log(self.answers)
-		}}/>
-	</div>
-}
-
-function Password({ question, self }){
-	return <div className={styles['form-element']}>
-		<p>{question}</p>
-		<input type='password' className='px-2 py-1 border rounded' onChange={e => {
-			self.answers[question] = e.target.value
-			//console.log(self.answers)
-		}}/>
-	</div>
-}
-
-//
-
-class Form extends React.Component {
-	constructor(props) {
-		super(props)
-		
-		this.questions = props.questions // separate it so when answer changes the entire thing doesn't just straight up refresh
-		this.answers = {}
-		this.renderUlComponents.bind(this)
-	}
-
-	renderUlComponents() {
-		//
-		return this.questions.map(
-			(PropsContainer, i) => {
-				if (PropsContainer === 'Separator') { return <p key={i + "_separator"} className={styles['underline-obj']}>
-					________________________________________________________________
-				</p>}
-
-				const question = PropsContainer.question
-
-				switch (PropsContainer.type) {
-				case 'Checkbox':
-					return <Checker 
-					key={question} 
-					question={question} 
-					options={PropsContainer.options}
-					display={PropsContainer.display}
-					self={this}
-					/>
-				case "Input":
-					return <InputField 
-					key={question} 
-					question={question} 
-					self={this}
-					/>
-				case "Password":
-					return <Password 
-					key={question} 
-					question={question} 
-					self={this}
-					/>
-				}
-
-			}
-		)
-	}
-
-	render() {
-		return <>
-			<div className={styles['form-container']}>
-				<br/><br/><br/><br/>
-				<h1>cool website (TM)</h1>
-				<p className={styles['underline-obj']}>
-					________________________________________________________________
-				</p>
-				<h2 className={styles['title']}>TOTALLY NOT SHADY LOGIN!!!! FORM</h2>
-				<h5 className={styles['title-desc']}>Your SECRET pass to a SECRET deal.......</h5>
-
-				<div className={'flex flex-col gap-4 ' + styles['form-render']}>
-					{this.renderUlComponents()}
-				</div>
-
-				<br/>
-				<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={() => {
-					console.log('SUBMIT', this.answers)
-					alert("I'll just pretend you had a successful login.")
-					window.location.href = '/dashboard'
-				}}>Login</button>
-				<h5>MAKE SURE YOUR [[Magical Code]] IS CORRECT.</h5>
-				<a href='/register'>CLICK HERE IF YOU WANT [[Registry]].</a>
-				<br/><br/><br/><br/>
-			</div>
-		</>
-	}
-	} 
 
 	// main app
 function App() {
@@ -135,24 +13,32 @@ function App() {
 	return (
 		<>
 			<div className={styles.loginWrapper}>
-				<Form questions={[
-					'Separator',
+				<Form 
+					title="TOTALLY NOT SHADY LOGIN FORM" 
+					desc='trust.' 
+					send_txt='Login'
+					footer=<>
+						<a href='/register'>CLICK HERE IF YOU WANT [[Registry]].</a>
+						<br/><br/><br/><br/>
+					</>
+					questions={[
+						'Separator',
 
-					{ question: "USERNAME",
-					type: 'Input'},
-					
-					{ question: "PASSWORD",
-					type: 'Password'},
+						{ question: "USERNAME",
+						type: 'Input'},
+						
+						{ question: "PASSWORD",
+						type: 'Password'},
 
-					'Separator',
-					
-					{ question: "REMEMBER NEXT LOGIN",
-					  type: 'Checkbox',
-					  options: ['Yes', 'No'],
-					  display: 'flex'
-					},
-
-				]}/>
+						'Separator',
+						
+						{ question: "REMEMBER NEXT LOGIN",
+							type: 'Checkbox',
+							options: ['Yes', 'No'],
+							display: 'flex'
+						},
+					]}
+				/>
 			</div>
 
 			<div className={styles['right-corner']}>
