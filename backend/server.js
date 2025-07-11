@@ -4,8 +4,10 @@ import dotenv from 'dotenv';
 
 import { getCurrentWeather, getWeatherForecast } from './api/weather.js';
 import { version } from './api/version.js';
-import FetchUser, {fetchUserByObjectId} from './api/fetchUser.js';
+
+import {fetchUserByObjectId} from './api/fetchUser.js';
 import FetchAllUsers from './api/fetchAllUsers.js';
+
 import { Initialize } from './database.js'
 
 dotenv.config();
@@ -17,7 +19,10 @@ const PORT = process.env.PORT || 3003;
 await Initialize()
 
 await fetchUserByObjectId('686cb41da1b5a2eb31718dc5', 'safemode').then(res => console.log(res))
-console.log( await FetchAllUsers('safemode').toArray() )
+//const fetched = FetchAllUsers(null, [], {page: 0, pageCount: 2})
+// console.log("got it", fetched)
+
+//console.log( await FetchAllUsers('safemode').toArray() )
 
 
 const allowedOrigins = [
@@ -65,9 +70,6 @@ app.get('/api/forecast', (req, res) => {
 });
 
 // User endpoints
-app.get('/api/users', (req, res) => {
-  res.json(getAllUsers());
-});
 
 app.get('/api/version', (req, res) => {
 	res.json(version())
@@ -108,6 +110,12 @@ app.delete('/api/users/:id', (req, res) => {
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', uptime: process.uptime() });
 });
+
+app.get('/api/allusers', async (req, res) => {
+  // console.log(req)
+  console.log("Result of operation:", await FetchAllUsers('safemode', [], req.query))
+  res.json({status: "OK", result: await FetchAllUsers('safemode', [], req.query)})
+})
 
 // For local development
 if (process.env.NODE_ENV !== 'production') {
