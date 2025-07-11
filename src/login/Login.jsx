@@ -18,6 +18,7 @@ function App() {
 					desc='trust.' 
 					send_txt='Login'
 					footer=<>
+						<br/>
 						<a href='/register'>CLICK HERE IF YOU WANT [[Registry]].</a>
 						<br/><br/><br/><br/>
 					</>

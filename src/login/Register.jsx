@@ -17,7 +17,7 @@ function App() {
 		{/*<Crossout/>*/}
 		<Form 
 		title="TOTALLY NOT SHADY REGISTER FORM" 
-		desc='trust.' 
+		desc='give me your credentials' 
 		send_txt='Register'
 		footer=<><p>cool.</p></>
 		questions={[
