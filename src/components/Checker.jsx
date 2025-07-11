@@ -1,6 +1,6 @@
 import styles from "../login/Login.module.css"
 
-export default function Checker({ question, options, display, self }){
+export default function Checker({ question, options, display, answer, setAnswer }){
 
 	return <div className={'items-center gap-4'} style={{display: display, justifyContent: 'center'}}>
 		<p className='min-w-fit'>{question}</p>
@@ -13,7 +13,9 @@ export default function Checker({ question, options, display, self }){
 					value={option} 
 					onChange={e => {
 						if (e.target.value){
-							self.answers[question] = option
+
+							answer[question] = e.target.value
+							setAnswer(answer)
 							//console.log(self.answers)
 						}
 					}}/>

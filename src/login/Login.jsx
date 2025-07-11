@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Login.module.css'
-import Form from '../components/Form'
+import Form from '../components/FormFunction'
 	// Todolist Components
 
 function Crossout(){
