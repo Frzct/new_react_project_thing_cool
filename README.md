@@ -24,3 +24,10 @@ cool/
 
 - add more features for funny  
 - make the website look decently good  
+
+setup: mongosh, vercel, yarn, vite framework  
+mongosh: connect to db  
+vercel: run "vercel" + "vercel --deployment"  
+yarn: run "yarn dev"  
+vite framework: the framework.  
+

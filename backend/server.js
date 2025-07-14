@@ -1,16 +1,29 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
 import { getCurrentWeather, getWeatherForecast } from './api/weather.js';
 import { version } from './api/version.js';
-import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from './api/users.js';
+
+import {fetchUserByObjectId} from './api/fetchUser.js';
+import FetchAllUsers from './api/fetchAllUsers.js';
+
+import { Initialize } from './database.js'
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3003;
-console.log(PORT, "is port")
 // Middleware
+
+await Initialize()
+
+await fetchUserByObjectId('686cb41da1b5a2eb31718dc5', 'safemode').then(res => console.log(res))
+//const fetched = FetchAllUsers(null, [], {page: 0, pageCount: 2})
+// console.log("got it", fetched)
+
+//console.log( await FetchAllUsers('safemode').toArray() )
+
 
 const allowedOrigins = [
   'https://new-react-project-thing-cool-git-feature-2-bakudankows-projects.vercel.app',
@@ -24,7 +37,7 @@ app.use(cors({
     if ( allowedOrigins.includes( origin ) ){
       return callback(null, true)
     } else {
-      return callback(new Error(`originSplit ${origin.split('/')}, failed to authorize`))
+      return callback(new Error(`failed to authorize`))
     }
 
   }
@@ -57,9 +70,6 @@ app.get('/api/forecast', (req, res) => {
 });
 
 // User endpoints
-app.get('/api/users', (req, res) => {
-  res.json(getAllUsers());
-});
 
 app.get('/api/version', (req, res) => {
 	res.json(version())
@@ -101,13 +111,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', uptime: process.uptime() });
 });
 
+app.get('/api/allusers', async (req, res) => {
+  // console.log(req)
+  console.log("Result of operation:", await FetchAllUsers('safemode', [], req.query))
+  res.json({status: "OK", result: await FetchAllUsers('safemode', [], req.query)})
+})
+
 // For local development
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📡 Weather API available at http://localhost:${PORT}/api/weather`);
-    console.log(`👋 Hello API available at http://localhost:${PORT}/api/hello`);
-    console.log(`👥 Users API available at http://localhost:${PORT}/api/users`);
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 }
 

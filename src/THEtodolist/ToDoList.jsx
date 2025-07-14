@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import styles from './ToDo.module.css'
 
 // Todolist Components
 
@@ -24,7 +25,7 @@ function ToDoList(){
        DoList.map((listItem, idx) => (
         <p key={idx} className="border p-2 rounded bg-white-100">
           {listItem + "   "}
-          <button className='margin-left-1' onClick={() => {
+          <button className={styles['margin-left-1']} onClick={() => {
               RemoveID(idx);
           }}>Remove</button>
         </p>
@@ -46,7 +47,7 @@ function ToDoList(){
 }
 
 function Crossout(){
-  return <img className='crossout' src='/public/Untitled.png'></img>
+  return <img className={styles.crossout} src='/public/Untitled.png'></img>
 }
 
 // main app
@@ -54,8 +55,6 @@ function App() {
 
   return (
     <>
-      <style href='./App.css' type='text/css'></style>
-
       <Crossout/>
       <ToDoList/>
     </>
