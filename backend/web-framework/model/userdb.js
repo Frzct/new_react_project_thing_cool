@@ -2,8 +2,8 @@ import { fetchFromCollections } from "../database.js"
 import { ObjectId } from "mongodb"
 
 const Modes = {
-    'safemode': {projection: {password: 0 }},
-    'backend': {_id: 0},
+    'safemode': {projection: { password: 0 }},
+    'backend': {projection: {  }},
 }
 
 /*export default function(UserID, Mode){
@@ -65,11 +65,31 @@ export async function fetchAllUsers_DB(mode, searchParams, queryData){
 export async function addUser_DB(Data){
     try {
         const Collection = await fetchFromCollections("UserData")
+        
         return await Collection.insertOne(Data)
     } catch (error) {
         throw new Error(`Failed to add user: ${error.message}`)
     }
 }
+
+export async function updateUser_DB(UserID, Update) {
+    try {
+        const Collection = await fetchFromCollections("UserData")
+        const Obj = new ObjectId(UserID)
+
+        Collection.updateOne({ _id: Obj }, Update)
+    } catch (error) {
+        throw new Error(`Failed to add user: ${error.message}`)
+    }
+} /*
+e.g.
+    updateUser_DB('686cb41da1b5a2eb31718dc5', {
+        $set: {
+            displayName: "Jack Steve"
+        }
+    })
+
+*/
 // Default export for backward compatibility
 export default {
     fetchUserByObjectId
