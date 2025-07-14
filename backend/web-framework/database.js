@@ -2,7 +2,6 @@ import { MongoClient } from 'mongodb'
 import dotenv from 'dotenv'
 dotenv.config()
 
-console.log(process.env.NODE_ENV)
 let Client
 let MainDB
 
@@ -27,15 +26,14 @@ export async function Initialize(){
     }
 }
 
-export function fetchFromCollections(CollectionName){
+export async function fetchFromCollections(CollectionName){
     if (!MainDB) {
-        throw new Error('Database has not been initialized yet, what are you doing???')
+       await Initialize()
     }
 
     if (!Collections[CollectionName]) {
         Collections[CollectionName] = MainDB.collection(CollectionName)
     }
-
     return Collections[CollectionName]
 }
 

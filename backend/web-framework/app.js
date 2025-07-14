@@ -3,16 +3,12 @@ import cors from 'cors'
 import dotenv from 'dotenv';
 
 import routes from './router/index.js'
-import { Initialize } from './database.js'
 
 dotenv.config() // the env is in the same path anyways
 
 const app = express()
 const PORT = process.env.PORT || 3003;
 // Middleware
-
-await Initialize()
-
 //
 const allowedOrigins = [
     'https://new-react-project-thing-cool-git-feature-2-bakudankows-projects.vercel.app',

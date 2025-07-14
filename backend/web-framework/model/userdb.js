@@ -22,8 +22,8 @@ const Modes = {
 }*/
 
 // Function to find user by MongoDB ObjectId (if you need to convert string to ObjectId)
-export function fetchUserByObjectId(idString, Mode) {
-    const Collection = fetchFromCollections('UserData')
+export async function fetchUserByObjectId(idString, Mode) {
+    const Collection = await fetchFromCollections('UserData')
     const Setting = Mode ? Modes[Mode] : Modes['safemode']
     
     // If you need to convert string to ObjectId, uncomment the next line:
@@ -38,7 +38,7 @@ export async function fetchAllUsers_DB(mode, searchParams, queryData){
         page = parseInt(page, 10) || 1
         pageCount = parseInt(pageCount, 10) || 20
 
-        const Collection = fetchFromCollections("UserData")
+        const Collection = await fetchFromCollections("UserData")
         
         const Users = await Collection.aggregate([
             ...searchParams,
@@ -64,7 +64,7 @@ export async function fetchAllUsers_DB(mode, searchParams, queryData){
 
 export async function addUser_DB(Data){
     try {
-        const Collection = fetchFromCollections("UserData")
+        const Collection = await fetchFromCollections("UserData")
         return await Collection.insertOne(Data)
     } catch (error) {
         throw new Error(`Failed to add user: ${error.message}`)
