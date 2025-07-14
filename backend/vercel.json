@@ -2,17 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "web-framework/app.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/web-framework/app.js"
+      "dest": "/api/index.js"
     }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "MONGO_CONNECTION": "mongodb+srv://FrzctBoy:7zV3E9WdvuSe7bCg@userinfo.qonvugi.mongodb.net/?retryWrites=true&w=majority&appName=Userinfo",
+    "LOCAL_MONGO": "mongodb://FrzctBoy:7zV3E9WdvuSe7bCg@localhost:27017"
   }
 } 
