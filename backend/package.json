@@ -2,12 +2,12 @@
   "name": "cool-backend",
   "version": "1.0.0",
   "description": "Backend for the cool weather app",
-  "main": "server.js",
+  "main": "web-framework/app.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
+    "start": "node web-framework/app.js",
     "build": "echo 'No build step required for Node.js API'",
-    "dev": "nodemon server.js"
+    "dev": "nodemon web-framework/app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
