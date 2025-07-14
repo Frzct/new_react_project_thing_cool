@@ -2,7 +2,7 @@ import { fetchFromCollections } from "../database.js"
 import { ObjectId } from "mongodb"
 
 const Modes = {
-    'safemode': {_id: 0, password: 0},
+    'safemode': {projection: {password: 0 }},
     'backend': {_id: 0},
 }
 

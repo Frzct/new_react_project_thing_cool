@@ -24,7 +24,7 @@ export async function Initialize(){
     if (!Client) {
         if (!uri) throw new Error('MONGO_CONNECTION env variable not set!');
         console.log('connect attempt');
-        Client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        Client = new MongoClient(uri);
     }  
 
     if (!MainDB) {
