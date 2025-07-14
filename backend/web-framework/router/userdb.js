@@ -1,5 +1,5 @@
 import express from 'express'
-import { fetchAllUsers, fetchUser, addUser } from '../controller/userdb.js'
+import { fetchAllUsers, fetchUser, addUser, updateUser } from '../controller/userdb.js'
 
 const router = express.Router()
 
@@ -9,7 +9,8 @@ router.get('/users', fetchAllUsers)
 // GET /api/users/:id - Fetch a specific user by ID
 router.get('/users/:id', fetchUser)
 
-// POST /api/users - Add a new user
+// POST /api/users 
 router.post('/users', addUser)
+router.get('/updateuser', updateUser)
 
 export default router

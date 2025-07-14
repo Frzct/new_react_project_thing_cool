@@ -65,11 +65,17 @@ export async function fetchAllUsers_DB(mode, searchParams, queryData){
 export async function addUser_DB(Data){
     try {
         const Collection = await fetchFromCollections("UserData")
-        
+
         return await Collection.insertOne(Data)
     } catch (error) {
         throw new Error(`Failed to add user: ${error.message}`)
     }
+}
+
+const UpdateBlacklist = {
+    "_id": true,
+    "password": true,
+    "joinDate": true,
 }
 
 export async function updateUser_DB(UserID, Update) {
@@ -77,18 +83,29 @@ export async function updateUser_DB(UserID, Update) {
         const Collection = await fetchFromCollections("UserData")
         const Obj = new ObjectId(UserID)
 
-        Collection.updateOne({ _id: Obj }, Update)
-    } catch (error) {
-        throw new Error(`Failed to add user: ${error.message}`)
-    }
-} /*
-e.g.
-    updateUser_DB('686cb41da1b5a2eb31718dc5', {
-        $set: {
-            displayName: "Jack Steve"
+        for (const banField of Object.keys(UpdateBlacklist)){
+            if (Update[banField]) {
+                //console.log("banned field", banField)
+                delete Update[banField]
+            }
         }
-    })
+        //console.log(Update)
 
+        Collection.updateOne({ _id: Obj }, {
+            "$set": Update
+        })
+        //
+    } catch (error) {
+        throw new Error(`Failed to update user: ${error.message}`)
+    }
+} 
+/*
+e.g.
+updateUser_DB('686cb41da1b5a2eb31718dc5', {
+    $set: {
+        displayName: "Jack Steve"
+    }
+})
 */
 // Default export for backward compatibility
 export default {
