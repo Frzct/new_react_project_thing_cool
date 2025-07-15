@@ -72,10 +72,13 @@ export async function addUser_DB(Data){
     }
 }
 
-const UpdateBlacklist = {
-    "_id": true,
+const UpdateWhitelist = {
+    /*"_id": true,
     "password": true,
-    "joinDate": true,
+    "joinDate": true,*/
+    "name": true,
+    "displayName": true,
+    "aboutMe": true
 }
 
 export async function updateUser_DB(UserID, Update) {
@@ -83,10 +86,10 @@ export async function updateUser_DB(UserID, Update) {
         const Collection = await fetchFromCollections("UserData")
         const Obj = new ObjectId(UserID)
 
-        for (const banField of Object.keys(UpdateBlacklist)){
-            if (Update[banField]) {
+        for (const Field of Object.keys(Update)){
+            if (!UpdateWhitelist[Field]) {
                 //console.log("banned field", banField)
-                delete Update[banField]
+                delete Update[Field]
             }
         }
         //console.log(Update)
