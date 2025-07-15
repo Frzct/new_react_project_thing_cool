@@ -62,41 +62,14 @@ export async function fetchAllUsers_DB(mode, searchParams, queryData){
     }
 }
 
-const AddUserWhitelist = {
-    "user": 'string',
-    "displayName": 'string',
-    "aboutMe": 'string',
-    "password": 'string',
-    "joinDate": 'string'
-}
-
-const UpdateWhitelist = {
-    "user": 'string',
-    "displayName": 'string',
-    "aboutMe": 'string'
-}
-
-function ValidateData(Data, Whitelist){
-    for (const Field of Object.keys(Data)){
-
-        const type = Whitelist[Field]
-
-        if (!type || typeof Data[Field] !== type) {
-            delete Update[Field]
-            continue
-        }
-
-    }
-    // no need to return, it edits the object directly.
-}
-
 export async function addUser_DB(Data){
     try {
+        //
+        console.log(Data)
         const Collection = await fetchFromCollections("UserData")
 
-        ValidateData(Data, AddUserWhitelist)
-
         return await Collection.insertOne(Data)
+        //
     } catch (error) {
         throw new Error(`Failed to add user: ${error.message}`)
     }
@@ -104,10 +77,9 @@ export async function addUser_DB(Data){
 
 export async function updateUser_DB(UserID, Update) {
     try {
+        //
         const Collection = await fetchFromCollections("UserData")
         const Obj = new ObjectId(UserID)
-
-        ValidateData(Update, UpdateWhitelist)
 
         Collection.updateOne({ _id: Obj }, {
             "$set": Update
