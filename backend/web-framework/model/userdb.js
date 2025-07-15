@@ -76,9 +76,9 @@ const UpdateWhitelist = {
     /*"_id": true,
     "password": true,
     "joinDate": true,*/
-    "name": true,
-    "displayName": true,
-    "aboutMe": true
+    "name": 'string',
+    "displayName": 'string',
+    "aboutMe": 'string'
 }
 
 export async function updateUser_DB(UserID, Update) {
@@ -87,10 +87,14 @@ export async function updateUser_DB(UserID, Update) {
         const Obj = new ObjectId(UserID)
 
         for (const Field of Object.keys(Update)){
-            if (!UpdateWhitelist[Field]) {
+            const type = UpdateWhitelist[Field]
+
+            if (!type || typeof Update[Field] !== type) {
                 //console.log("banned field", banField)
                 delete Update[Field]
+                continue
             }
+
         }
         //console.log(Update)
 
