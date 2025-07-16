@@ -1,6 +1,8 @@
 import * as zod from 'zod'
 import { _isoDate } from 'zod/v4/core'
 
+const neverUse = zod.never().optional()
+
 export const Validators = {
     'password': zod.string()
                     .refine(str => (str.length >= 6 && str.length <= 25)),
@@ -13,49 +15,44 @@ export const Validators = {
     'joinDate': zod.iso.datetime()
 }
 
-//console.log(new Date().toISOString())
-//
+// all the fields in here are necessary
 
-export const UpdateWhitelist = {
-    "user": Validators.user,
-    "displayName": Validators.displayName,
-    "aboutMe": Validators.aboutMe
-}
+export const UpdateWhitelist = zod.object({
+    "user": Validators.user.optional(),
+    "displayName": Validators.displayName.optional(),
+    "aboutMe": Validators.aboutMe.optional(),
+    //
+    "_id": neverUse,
+    "password": neverUse,
+    "joinDate": neverUse
+})
 
-export const AddUserWhitelist = {
+export const AddUserWhitelist = zod.object({
     "user": Validators.user,
     "displayName": Validators.displayName,
     "aboutMe": Validators.aboutMe,
     "password": Validators.password,
-    "joinDate": Validators.joinDate
-}
+    "joinDate": Validators.joinDate,
+    "_id": neverUse
+})
 
 //
 
 export default function ValidateData(Data, Whitelist){
 
-    for (const Field of Object.keys(Data)){
+    if (typeof Whitelist === "object" && Whitelist.parse){
+        const response = Whitelist.parse(Data)
+        //console.log("parse ended")
 
-        const type = Whitelist[Field]
-        
-        if (!type) { return }
-
-        if (typeof type == 'object'){
-            //console.log("begin parse...", Field)
-            const response = type.parse(Data[Field])
-            //console.log("parse ended")
-
-            if (!response){
-                return response
-            }
-
-        } else {
-            //console.log('str type')
+        if (!response) return response
+    } else {
+        //console.log('str type')
+        for (const Field in Object.keys(Data)){
             if (typeof Data[Field] !== type) {
                 return "Field " + Field + " expects type " + type
             }
         }
-
+        //
     }
 
     return true
