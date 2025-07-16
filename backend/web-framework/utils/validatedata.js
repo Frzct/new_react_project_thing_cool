@@ -17,23 +17,18 @@ export const Validators = {
 
 // all the fields in here are necessary
 
-export const UpdateWhitelist = zod.object({
+export const UpdateWhitelist = zod.strictObject({
     "user": Validators.user.optional(),
     "displayName": Validators.displayName.optional(),
     "aboutMe": Validators.aboutMe.optional(),
-    //
-    "_id": neverUse,
-    "password": neverUse,
-    "joinDate": neverUse
 })
 
-export const AddUserWhitelist = zod.object({
+export const AddUserWhitelist = zod.strictObject({
     "user": Validators.user,
     "displayName": Validators.displayName,
     "aboutMe": Validators.aboutMe,
     "password": Validators.password,
     "joinDate": Validators.joinDate,
-    "_id": neverUse
 })
 
 //
