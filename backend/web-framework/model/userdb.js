@@ -65,7 +65,6 @@ export async function fetchAllUsers_DB(mode, searchParams, queryData){
 export async function addUser_DB(Data){
     try {
         //
-        console.log(Data)
         const Collection = await fetchFromCollections("UserData")
 
         return await Collection.insertOne(Data)
