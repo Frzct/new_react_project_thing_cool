@@ -3,7 +3,6 @@ import { ObjectId } from "mongodb"
 
 import bcrypt from 'bcryptjs'
 import JWT from "jsonwebtoken"
-import { data } from "react-router"
 
 const Modes = {
     'safemode': {projection: { password: 0 }},
@@ -81,13 +80,10 @@ export async function login_DB(Data){
     try {
         //
         const User = await fetchUserByName(Data.user, 'backend')
-        console.log()
         if (!User) { return }
         if (!await bcrypt.compare( Data.password, User.password)) return
         
         const token = JWT.sign({ userId: User._id.toString() }, process.env.JWT_SECRET, { expiresIn: '24h' })
-        console.log("Cool. Got you're first token.", token)
-
         return token
         //
     } catch (error) {

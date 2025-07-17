@@ -9,7 +9,6 @@ function Crossout(){
 
 async function Login(data) {
 	console.log("Submitting login.")
-	console.log(JSON.stringify(data))
 
 	await fetch('/api/login', {
 		method: 'POST',
@@ -19,7 +18,7 @@ async function Login(data) {
 	.then(res => {
 		console.log(res)
 		if (res.status !== 'OK') {
-			return alert("Login failure")
+			return alert("Login failure: " + res.message)
 		}
 
 		localStorage.setItem('token', res.token)
