@@ -1,5 +1,20 @@
 import {fetchUserByObjectId, fetchAllUsers_DB, addUser_DB, updateUser_DB} from '../model/userdb.js'
-import ValidateData, { UpdateWhitelist, AddUserWhitelist } from '../utils/validatedata.js'
+import * as zod from "zod"
+import ValidateData from '../utils/validatedata.js'
+
+export const User = zod.strictObject({
+    "user": zod.string().refine(str => str.length > 6 && str.length < 20),
+    "displayName": zod.string().refine(str => str.length > 3 && str.length < 12),
+    "aboutMe": zod.string().refine(str => str.length < 200).optional(),
+    "password": zod.string().refine(str => str.length > 6 && str.length < 20),
+    "joinDate": zod.iso.datetime()
+})
+
+export const UpdateUser = User.pick({
+    "displayName": true,
+    "aboutMe": true,
+    "user": true
+}).partial()
 
 export async function fetchAllUsers_Service(req, res) {
     try {
@@ -28,7 +43,7 @@ export async function addUser_Service(req, res) {
         const userData = req.query
         //console.log(req.query)
 
-        const Validated = ValidateData(userData, AddUserWhitelist)
+        const Validated = ValidateData(userData, User)
 
         if (Validated !== true){
             return res.status(401).json({ status: "GETOUT", message: toString(Validated) })
@@ -46,7 +61,7 @@ export async function addUser_Service(req, res) {
 export async function updateUser_Service(req, res){
     try {
         const query = req.query
-        const Validated = ValidateData(query, UpdateWhitelist)
+        const Validated = ValidateData(query, UpdateUser)
 
         if (Validated !== true){
             return res.status(401).json({ status: "GETOUT", message: toString(Validated) })
