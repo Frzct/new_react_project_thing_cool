@@ -14,9 +14,13 @@ async function SignUp(data) {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
-	})
+	}).then(res => res.json())
+	.then(res => {
+		if (res.status !== 'OK') { return alert("Register failed: " + res.message) }
 
-	window.location.href = ''
+		alert("register complete")
+		window.location.href = ''
+	})
 	// ...form JSX
 }
 
