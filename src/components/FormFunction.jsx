@@ -5,7 +5,7 @@ import Password from './Password'
 
 import React, { useState } from 'react'
 
-export default function Form({title, desc, send_txt, footer, questions}){
+export default function Form({title, desc, send_txt, footer, questions, onSubmit}){
 	const [answers, setAnswer] = useState({})
 	//console.log(answers)
 	
@@ -28,6 +28,7 @@ export default function Form({title, desc, send_txt, footer, questions}){
 					display={PropsContainer.display}
 					setAnswer={setAnswer}
 					answer={answers}
+					recorded={PropsContainer.recorded}
 					/>
 				case "Input":
 					return <InputField 
@@ -35,6 +36,7 @@ export default function Form({title, desc, send_txt, footer, questions}){
 					question={question} 
 					setAnswer={setAnswer}
 					answer={answers}
+					recorded={PropsContainer.recorded}
 					/>
 				case "Password":
 					return <Password 
@@ -42,6 +44,7 @@ export default function Form({title, desc, send_txt, footer, questions}){
 					question={question} 
 					answer={answers}
 					setAnswer={setAnswer}
+					recorded={PropsContainer.recorded}
 					/>
 				}
 
@@ -64,9 +67,12 @@ export default function Form({title, desc, send_txt, footer, questions}){
 			</div>
 
 			<br/>
-			<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={() => {
+			<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={async () => {
 				console.log('SUBMIT', answers)
+				await onSubmit(answers)
+
 				alert("I'll just pretend you had a successful login.")
+
 
 				window.location.href = '/dashboard'
 			}}>{send_txt}</button>

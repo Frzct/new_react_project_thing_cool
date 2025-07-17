@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Form from '../components/Form'
+import Form from '../components/FormFunction'
 import styles from "./Login.module.css"
 	// Todolist Components
 
@@ -7,6 +7,21 @@ function Crossout(){
 	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
 }
 
+async function SignUp(data) {
+	console.log("Submitting")
+
+	const Submit = async (e) => {
+		e.preventDefault();
+		await fetch('/api/signup', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data)
+		});
+	};
+
+	await Submit
+	// ...form JSX
+}
 
 	// main app
 function App() {
@@ -24,24 +39,19 @@ function App() {
 			'Separator',
 
 			{ question: "USERNAME",
-			  type: 'Input'},
+			  type: 'Input',
+			  recorded: "user"
+			},
 
 			{ question: "PASSWORD",
-			  type: 'Password'},
+			  type: 'Password',
+			  recorded: 'password'
+			},
 
 			'Separator',
-
-			{ question: "GENDER IDENTIFICATION",
-			  type: 'Checkbox',
-			  options: [
-				'Male',
-				'Female',
-				'Other',
-				'TOP RATED BUSINESSMAN OF1997'
-			]},
-
-			'Separator',
-		]}/>
+		]}
+		onSubmit={SignUp}
+		/>
 		{/*<Crossout/>*/}
 		</div>
 	)

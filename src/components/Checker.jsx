@@ -1,6 +1,6 @@
 import styles from "../login/Login.module.css"
 
-export default function Checker({ question, options, display, answer, setAnswer }){
+export default function Checker({ question, options, display, answer, setAnswer, recorded }){
 
 	return <div className={'items-center gap-4'} style={{display: display, justifyContent: 'center'}}>
 		<p className='min-w-fit'>{question}</p>
@@ -9,12 +9,12 @@ export default function Checker({ question, options, display, answer, setAnswer 
 			return <div key={option} className="flex items-center gap-2">
 				<input 
 					type='radio' 
-					name={'radio_' + question} 
+					name={'radio_' + recorded} 
 					value={option} 
 					onChange={e => {
 						if (e.target.value){
 
-							answer[question] = e.target.value
+							answer[recorded] = e.target.value
 							setAnswer(answer)
 							//console.log(self.answers)
 						}
