@@ -99,6 +99,12 @@ export async function addUser_DB(Data){
     try {
         //
         const Collection = await fetchFromCollections("UserData")
+        const ExistingUser = await fetchUserByName(Data.user)
+
+        if (ExistingUser) {
+            return
+        }
+
         Data.password = await bcrypt.hash(Data.password, bsalt)
 
         //console.log("Password hashed:", Data.password)

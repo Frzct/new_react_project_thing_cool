@@ -54,6 +54,10 @@ export async function addUser_Service(req, res) {
 
         //
         const result = await addUser_DB(userData)
+        if (!result) {
+            return res.status(500).json({ status: "GETOUT", message: "Username already exists."})
+        }
+
         res.status(201).json({ status: "OK", result })
     } catch (error) {
         res.status(500).json({ status: "ERROR", message: error.message })
