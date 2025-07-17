@@ -1,6 +1,10 @@
 import { fetchFromCollections } from "../database.js"
 import { ObjectId } from "mongodb"
 
+import bcrypt from 'bcryptjs'
+import JWT from "jsonwebtoken"
+import { data } from "react-router"
+
 const Modes = {
     'safemode': {projection: { password: 0 }},
     'backend': {projection: {  }},
@@ -21,6 +25,8 @@ const Modes = {
     return Collection.findOne({ '_id': id }, Setting) // so you just have to findOne() with {_id: <string>}? 
 }*/
 
+const bsalt = bcrypt.genSaltSync()
+
 // Function to find user by MongoDB ObjectId (if you need to convert string to ObjectId)
 export async function fetchUserByObjectId(idString, Mode) {
     const Collection = await fetchFromCollections('UserData')
@@ -30,6 +36,13 @@ export async function fetchUserByObjectId(idString, Mode) {
     const id = new ObjectId(idString)
     
     return Collection.findOne({ '_id': id }, Setting)
+}
+
+export async function fetchUserByName(name, Mode) {
+    const Collection = await fetchFromCollections('UserData')
+    const Setting = Mode ? Modes[Mode] : Modes['safemode']
+
+    return Collection.findOne({ "user": name }, Setting)
 }
 
 export async function fetchAllUsers_DB(mode, searchParams, queryData){
@@ -62,10 +75,33 @@ export async function fetchAllUsers_DB(mode, searchParams, queryData){
     }
 }
 
+//
+
+export async function login_DB(Data){
+    try {
+        //
+        const User = await fetchUserByName(Data.user, 'backend')
+
+        if (!User) { return }
+        if (!bcrypt.compare( User.password, Data.password )) return
+
+        const token = JWT.sign({ userId: User._id.toString() }, process.env.JWT_SECRET)
+        console.log("Cool. Got you're first token.", token)
+
+        return token
+        //
+    } catch (error) {
+        throw new Error(`Failed to login: ${error.message}`)
+    }
+}
+
 export async function addUser_DB(Data){
     try {
         //
         const Collection = await fetchFromCollections("UserData")
+        Data.password = await bcrypt.hash(Data.password, bsalt)
+
+        //console.log("Password hashed:", Data.password)
 
         return await Collection.insertOne(Data)
         //

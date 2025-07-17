@@ -1,10 +1,10 @@
-import {fetchUserByObjectId, fetchAllUsers_DB, addUser_DB, updateUser_DB} from '../model/userdb.js'
+import {fetchUserByObjectId, fetchAllUsers_DB, addUser_DB, updateUser_DB, login_DB} from '../model/userdb.js'
 import * as zod from "zod"
 import ValidateData from '../utils/validatedata.js'
 
 export const User = zod.strictObject({
     "user": zod.string().refine(str => str.length > 6 && str.length < 20),
-    "displayName": zod.string().refine(str => str.length > 3 && str.length < 12),
+    "displayName": zod.string().refine(str => str.length > 3 && str.length < 12).optional(),
     "aboutMe": zod.string().refine(str => str.length < 200).optional(),
     "password": zod.string().refine(str => str.length > 6 && str.length < 20),
     "joinDate": zod.iso.datetime()
@@ -15,6 +15,7 @@ export const UpdateUser = User.pick({
     "aboutMe": true,
     "user": true
 }).partial()
+//
 
 export async function fetchAllUsers_Service(req, res) {
     try {
@@ -38,10 +39,12 @@ export async function fetchUser_Service(req, res) {
     }
 }
 
+//
+
 export async function addUser_Service(req, res) {
     try {
-        const userData = req.query
-        //console.log(req.query)
+        const userData = req.body
+        userData.joinDate = new Date().toISOString()
 
         const Validated = ValidateData(userData, User)
 
@@ -49,10 +52,30 @@ export async function addUser_Service(req, res) {
             return res.status(401).json({ status: "GETOUT", message: toString(Validated) })
         }
 
-       // console.log(userData)
         //
         const result = await addUser_DB(userData)
         res.status(201).json({ status: "OK", result })
+    } catch (error) {
+        res.status(500).json({ status: "ERROR", message: error.message })
+    }
+}
+
+export async function login_Service(req, res) {
+    try {
+        const loginData = req.body
+        const Validated = ValidateData(loginData, User.pick({
+            password: true,
+            user: true
+        }))
+
+        if (Validated !== true){
+            return res.status(401).json({ status: "GETOUT", message: toString(Validated) })
+        }
+        //
+        const result = await login_DB(loginData)
+        if (!result) return
+
+        res.status(201).json({ status: "OK", token: result })
     } catch (error) {
         res.status(500).json({ status: "ERROR", message: error.message })
     }
@@ -66,7 +89,6 @@ export async function updateUser_Service(req, res){
         if (Validated !== true){
             return res.status(401).json({ status: "GETOUT", message: toString(Validated) })
         }
-        //console.log(query)
 
         await updateUser_DB('686cb41da1b5a2eb31718dc5', query) // no security features yet so js doing this for now
         res.status(201).json({ status: "OK" })
