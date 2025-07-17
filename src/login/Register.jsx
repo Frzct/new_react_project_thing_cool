@@ -10,16 +10,13 @@ function Crossout(){
 async function SignUp(data) {
 	console.log("Submitting")
 
-	const Submit = async (e) => {
-		e.preventDefault();
-		await fetch('/api/signup', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data)
-		});
-	};
+	await fetch('/api/signup', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data)
+	})
 
-	await Submit
+	window.location.href = ''
 	// ...form JSX
 }
 

@@ -7,6 +7,29 @@ function Crossout(){
 	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
 }
 
+async function Login(data) {
+	console.log("Submitting login.")
+	console.log(JSON.stringify(data))
+
+	await fetch('/api/login', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data)
+	}).then(res => res.json())
+	.then(res => {
+		console.log(res)
+		if (res.status !== 'OK') {
+			return alert("Login failure")
+		}
+
+		localStorage.setItem('token', res.token)
+		alert("Login success")
+
+		window.location.href = '/dashboard'
+	})
+	// ...form JSX
+}
+
 	// main app
 function App() {
 
@@ -26,19 +49,23 @@ function App() {
 						'Separator',
 
 						{ question: "USERNAME",
-						type: 'Input'},
+						type: 'Input',
+						recorded: 'user'},
 						
 						{ question: "PASSWORD",
-						type: 'Password'},
+						type: 'Password',
+						recorded: 'password'},
 
 						'Separator',
 						
-						{ question: "REMEMBER NEXT LOGIN",
+						/*{ question: "REMEMBER NEXT LOGIN",
 							type: 'Checkbox',
 							options: ['Yes', 'No'],
 							display: 'flex'
-						},
+						},*/
 					]}
+					onSubmit={Login}
+
 				/>
 			</div>
 

@@ -68,13 +68,8 @@ export default function Form({title, desc, send_txt, footer, questions, onSubmit
 
 			<br/>
 			<button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={async () => {
-				console.log('SUBMIT', answers)
+				console.log('SUBMIT')
 				await onSubmit(answers)
-
-				alert("I'll just pretend you had a successful login.")
-
-
-				window.location.href = '/dashboard'
 			}}>{send_txt}</button>
 			<>{footer}</>
 		</div>
