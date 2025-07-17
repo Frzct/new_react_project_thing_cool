@@ -83,7 +83,7 @@ export async function login_DB(Data){
         const User = await fetchUserByName(Data.user, 'backend')
 
         if (!User) { return }
-        if (!bcrypt.compare( User.password, Data.password )) return
+        if (!await bcrypt.compare( User.password, Data.password )) return
 
         const token = JWT.sign({ userId: User._id.toString() }, process.env.JWT_SECRET, { expiresIn: '24h' })
         console.log("Cool. Got you're first token.", token)
