@@ -15,40 +15,11 @@ export const Validators = {
     'joinDate': zod.iso.datetime()
 }
 
-// all the fields in here are necessary
-
-export const UpdateWhitelist = zod.strictObject({
-    "user": Validators.user.optional(),
-    "displayName": Validators.displayName.optional(),
-    "aboutMe": Validators.aboutMe.optional(),
-})
-
-export const AddUserWhitelist = zod.strictObject({
-    "user": Validators.user,
-    "displayName": Validators.displayName,
-    "aboutMe": Validators.aboutMe,
-    "password": Validators.password,
-    "joinDate": Validators.joinDate,
-})
-
-//
-
 export default function ValidateData(Data, Whitelist){
+    const response = Whitelist.parse(Data)
+    //console.log("parse ended")
 
-    if (typeof Whitelist === "object" && Whitelist.parse){
-        const response = Whitelist.parse(Data)
-        //console.log("parse ended")
-
-        if (!response) return response
-    } else {
-        //console.log('str type')
-        for (const Field in Object.keys(Data)){
-            if (typeof Data[Field] !== type) {
-                return "Field " + Field + " expects type " + type
-            }
-        }
-        //
-    }
+    if (!response) return response
 
     return true
 }
