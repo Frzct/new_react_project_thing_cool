@@ -12,5 +12,6 @@ router.get('/users/:id', fetchUser)
 // POST /api/signup - Add a new user
 router.post('/signup', addUser)
 router.get('/updateuser', updateUser)
-router.get('/login', loginUser)
+router.post('/login', loginUser)
+
 export default router

@@ -73,7 +73,9 @@ export async function login_Service(req, res) {
         }
         //
         const result = await login_DB(loginData)
-        if (!result) return
+        if (!result) {
+            return res.status(500).json({ status: "ERROR", message: "YOU GOT THE WRONG USER FOOL"})
+        }
 
         res.status(201).json({ status: "OK", token: result })
     } catch (error) {
