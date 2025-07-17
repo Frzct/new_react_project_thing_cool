@@ -55,6 +55,7 @@ if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => {
         console.log(`Server running on http://localhost:${PORT}`);
     });
+    allowedOrigins.push('http://localhost:5173')
 }
 
 export default app 
