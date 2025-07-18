@@ -3,7 +3,7 @@ import * as zod from "zod"
 import ValidateData from '../utils/validatedata.js'
 
 export const User = zod.strictObject({
-    "user": zod.string().refine(str => str.length > 6 && str.length < 20),
+    "user": zod.string().refine(str => str.length > 3 && str.length < 20),
     "displayName": zod.string().refine(str => str.length > 3 && str.length < 12).optional(),
     "aboutMe": zod.string().refine(str => str.length < 200).optional(),
     "password": zod.string().refine(str => str.length > 6 && str.length < 20),
