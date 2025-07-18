@@ -11,10 +11,11 @@ function Crossout(){
 
 async function SignUp(data) {
 	console.log("Submitting")
+
 	if (data.password1 !== data.password){
 		return alert("Your reconfirmed password is wrong.")
 	}
-	
+
 	delete data.password1
 
 	await fetch(Backend + '/api/signup', {
@@ -23,6 +24,7 @@ async function SignUp(data) {
 		body: JSON.stringify(data)
 	}).then(res => res.json())
 	.then(res => {
+		data.password1 = data.password
 		if (res.status !== 'OK') { return alert("Register failed: " + res.message) }
 
 		alert("register complete")
