@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Form from '../components/FormFunction'
 import styles from "./Login.module.css"
+import DeploymentData from '../deploymentData'
 	// Todolist Components
+const Backend = DeploymentData().backend
 
 function Crossout(){
 	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
@@ -10,7 +12,7 @@ function Crossout(){
 async function SignUp(data) {
 	console.log("Submitting")
 
-	await fetch('/api/signup', {
+	await fetch(Backend + '/api/signup', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
