@@ -18,7 +18,7 @@ async function Login(data) {
 		body: JSON.stringify(data)
 	}).then(res => res.json())
 	.then(res => {
-		console.log(res)
+		
 		if (res.status !== 'OK') {
 			return alert("Login failure: " + res.message)
 		}
