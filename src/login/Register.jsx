@@ -11,6 +11,11 @@ function Crossout(){
 
 async function SignUp(data) {
 	console.log("Submitting")
+	if (data.password1 !== data.password){
+		return alert("Your reconfirmed password is wrong.")
+	}
+	
+	delete data.password1
 
 	await fetch(Backend + '/api/signup', {
 		method: 'POST',
@@ -49,6 +54,11 @@ function App() {
 			{ question: "PASSWORD",
 			  type: 'Password',
 			  recorded: 'password'
+			},
+
+			{ question: "RECONFIRM PASS",
+				type: 'Password',
+				recorded: 'password1'
 			},
 
 			'Separator',
