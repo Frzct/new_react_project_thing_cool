@@ -1,10 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Login.module.css'
 import Form from '../components/FormFunction'
+import DeploymentData from '../deploymentData'
 	// Todolist Components
+const Backend = DeploymentData().backend
 
 function Crossout(){
 	return <img className={styles.crossout} src='/Untitled.png' alt="Crossout"></img>
+}
+
+async function Login(data) {
+	console.log("Submitting login.")
+
+	await fetch(Backend + '/api/login', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data)
+	}).then(res => res.json())
+	.then(res => {
+		
+		if (res.status !== 'OK') {
+			return alert("Login failure: " + res.message)
+		}
+
+		localStorage.setItem('token', res.token)
+		alert("Login success")
+
+		window.location.href = '/dashboard'
+	})
+	// ...form JSX
 }
 
 	// main app
@@ -26,19 +50,23 @@ function App() {
 						'Separator',
 
 						{ question: "USERNAME",
-						type: 'Input'},
+						type: 'Input',
+						recorded: 'user'},
 						
 						{ question: "PASSWORD",
-						type: 'Password'},
+						type: 'Password',
+						recorded: 'password'},
 
 						'Separator',
 						
-						{ question: "REMEMBER NEXT LOGIN",
+						/*{ question: "REMEMBER NEXT LOGIN",
 							type: 'Checkbox',
 							options: ['Yes', 'No'],
 							display: 'flex'
-						},
+						},*/
 					]}
+					onSubmit={Login}
+
 				/>
 			</div>
 
