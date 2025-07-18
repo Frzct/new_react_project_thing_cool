@@ -111,6 +111,10 @@
 
 /**/
 
+.image-fit {
+  max-width: 2rem;
+}
+
 .right-corner {
   align-self: self-end;
   justify-content: right;
