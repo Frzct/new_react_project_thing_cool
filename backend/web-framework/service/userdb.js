@@ -7,7 +7,8 @@ export const User = zod.strictObject({
     "displayName": zod.string().refine(str => str.length > 3 && str.length < 12).optional(),
     "aboutMe": zod.string().refine(str => str.length < 200).optional(),
     "password": zod.string().refine(str => str.length > 6 && str.length < 20),
-    "joinDate": zod.iso.datetime()
+    "joinDate": zod.iso.datetime(),
+    'chatLog': zod.array()
 })
 
 export const UpdateUser = User.pick({
@@ -19,7 +20,7 @@ export const UpdateUser = User.pick({
 
 export async function fetchAllUsers_Service(req, res) {
     try {
-        const result = await fetchAllUsers_DB('safemode', [], req.query)
+        const result = await fetchAllUsers_DB([], req.query)
         res.json({ status: "OK", result })
     } catch (error) {
         res.status(500).json({ status: "ERROR", message: error.message })
@@ -29,7 +30,7 @@ export async function fetchAllUsers_Service(req, res) {
 export async function fetchUser_Service(req, res) {
     try {
         const { id } = req.params
-        const result = await fetchUserByObjectId(id, 'safemode')
+        const result = await fetchUserByObjectId(id)
         if (!result) {
             return res.status(404).json({ status: "ERROR", message: "User not found" })
         }
@@ -45,6 +46,7 @@ export async function addUser_Service(req, res) {
     try {
         const userData = req.body
         userData.joinDate = new Date().toISOString()
+        userData.chatLog = []
 
         const Validated = ValidateData(userData, User)
 

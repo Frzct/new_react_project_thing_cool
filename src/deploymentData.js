@@ -1,6 +1,5 @@
-
 const DevEnv = {
-    'backend': '' // check vercel.json for routes. this leads to /api/weather
+    'backend': '' // check vite.config.js for routes.
 }
 
 const ProdEnv = {

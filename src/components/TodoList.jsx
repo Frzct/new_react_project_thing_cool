@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import styles from './ToDo.module.css'
+import styles from './Components.module.css'
 
 // Todolist Components
 
-function ToDoList(){
+export default function ToDoList(){
   const [text, setText] = useState('')
   const [DoList, setDoList] = useState([])
 
@@ -45,20 +45,3 @@ function ToDoList(){
   </div>
   )
 }
-
-function Crossout(){
-  return <img className={styles.crossout} src='/public/Untitled.png'></img>
-}
-
-// main app
-function App() {
-
-  return (
-    <>
-      <Crossout/>
-      <ToDoList/>
-    </>
-  )
-}
-
-export default App

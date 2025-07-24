@@ -10,6 +10,7 @@
     "dev": "nodemon web-framework/app.js"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.5.3",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",

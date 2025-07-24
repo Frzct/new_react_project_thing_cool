@@ -28,7 +28,7 @@ async function SignUp(data) {
 		if (res.status !== 'OK') { return alert("Register failed: " + res.message) }
 
 		alert("register complete")
-		window.location.href = ''
+		window.location.href = './'
 	})
 	// ...form JSX
 }

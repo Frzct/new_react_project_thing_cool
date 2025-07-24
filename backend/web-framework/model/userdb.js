@@ -4,11 +4,6 @@ import { ObjectId } from "mongodb"
 import bcrypt from 'bcryptjs'
 import JWT from "jsonwebtoken"
 
-const Modes = {
-    'safemode': {projection: { password: 0 }},
-    'backend': {projection: {  }},
-}
-
 /*export default function(UserID, Mode){
     const Collection = fetchFromCollections('UserData')
     const Setting = Mode ? Modes[Mode] : Modes['safemode']
@@ -26,11 +21,22 @@ const Modes = {
 
 const bsalt = bcrypt.genSaltSync()
 
+//
+/*async function reconcileData(){
+    const Collection = await fetchFromCollections('UserData')
+
+    await Collection.updateMany()
+}*/
+
+//await reconcileData()
+//
+
 // Function to find user by MongoDB ObjectId (if you need to convert string to ObjectId)
 export async function fetchUserByObjectId(idString, Mode) {
     const Collection = await fetchFromCollections('UserData')
-    const Setting = Mode ? Modes[Mode] : Modes['safemode']
+    const Setting = Mode || {projection: { password: 0 }}
     
+
     // If you need to convert string to ObjectId, uncomment the next line:
     const id = new ObjectId(idString)
     
@@ -39,12 +45,24 @@ export async function fetchUserByObjectId(idString, Mode) {
 
 export async function fetchUserByName(name, Mode) {
     const Collection = await fetchFromCollections('UserData')
-    const Setting = Mode ? Modes[Mode] : Modes['safemode']
+    const Setting = Mode || {projection: { password: 0 }}
 
     return Collection.findOne({ "user": name }, Setting)
 }
 
-export async function fetchAllUsers_DB(mode, searchParams, queryData){
+export async function fetchUserIDFromJWT(token) {
+
+    const user = JWT.verify(
+        token,
+        process.env.JWT_SECRET,
+    )
+
+    if (!user) return false
+
+    return user
+}
+
+export async function fetchAllUsers_DB(searchParams, queryData){
     try {
         let {page, pageCount} = queryData
         page = parseInt(page, 10) || 1
@@ -87,6 +105,7 @@ export async function login_DB(Data){
         const token = JWT.sign({ 
             userId: User._id.toString()
         }, process.env.JWT_SECRET, { expiresIn: '24h' })
+
         return token
         //
     } catch (error) {
@@ -129,6 +148,18 @@ export async function updateUser_DB(UserID, Update) {
         throw new Error(`Failed to update user: ${error.message}`)
     }
 } 
+
+//
+export async function getFieldData_DB(UserID, Field) {
+    try {
+        return await fetchUserByObjectId(UserID, {
+            projection: { _id: 0, [Field]: 1 }
+        }).then( res => res.chatLog )
+
+    } catch (error) {
+        throw new Error(`Failed to get new field data for ${UserID}: ${error.message}`)
+    }
+}
 
 // Default export for backward compatibility
 export default {

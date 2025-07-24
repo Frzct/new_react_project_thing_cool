@@ -1,0 +1,21 @@
+.margin-left {
+    margin-left: 1rem;
+}
+
+.arona_container {
+    position: absolute;
+    top: 37rem;
+    right: 7rem;
+}
+
+.arona {
+    width: 12rem;
+    height: 12rem;
+
+    align-self: flex-end;
+    display: flex;
+}
+
+.container {
+    
+}

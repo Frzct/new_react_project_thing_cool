@@ -5,7 +5,7 @@ export default function Checker({ question, options, display, answer, setAnswer,
 	return <div className={'items-center gap-4'} style={{display: display, justifyContent: 'center'}}>
 		<p className='min-w-fit'>{question}</p>
 		<div className={styles.selectionOptions}>
-		{	options.map(option => {
+		{ options.map(option => {
 			return <div key={option} className="flex items-center gap-2">
 				<input 
 					type='radio' 
@@ -13,7 +13,6 @@ export default function Checker({ question, options, display, answer, setAnswer,
 					value={option} 
 					onChange={e => {
 						if (e.target.value){
-
 							answer[recorded] = e.target.value
 							setAnswer(answer)
 							//console.log(self.answers)
@@ -21,7 +20,7 @@ export default function Checker({ question, options, display, answer, setAnswer,
 					}}/>
 				<label>{option}</label>
 			</div>
-		})	}
+		}) }
 		</div>
 	</div>
 }
