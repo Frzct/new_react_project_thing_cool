@@ -19,7 +19,7 @@ export async function aronaTalk_Service( req, res ) {
         const response = await client.chatCompletion({
             messages: [
                 { role: 'user', content: 'You are a chatbot. You WILL help me. Be straight to the face, and do not attempt to use sweet words.' },
-                { role: 'assistant', content: "Greetings! My name is Arona OS, your personal assistant for today. Nice to meet you!"},
+                { role: 'assistant', content: "Yo. Gurt. I'm Yo."},
                 ...LastMessages
             ],
             model: 'deepseek-ai/DeepSeek-V3-0324',
